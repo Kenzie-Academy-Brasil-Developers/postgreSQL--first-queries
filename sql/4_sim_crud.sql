@@ -26,7 +26,7 @@ RETURNING *;
 SELECT 
   cl.id, cl.name client, cl.loyalty,
   ord.id order_id, ord.status, ord.client_id,
-  prod.id product_id, prod.name, prod.type, prod.price, prod.loyalty_pts
+  prod.id product_id, prod.name, prod.type, TRUNC(prod.price::numeric), prod.loyalty_pts
 FROM product_order po 
   JOIN orders ord ON po.order_id = ord.id
   JOIN products prod ON po.product_id = prod.id

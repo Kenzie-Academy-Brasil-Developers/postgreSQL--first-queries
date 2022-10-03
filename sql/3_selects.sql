@@ -11,7 +11,7 @@ SELECT * FROM product_order;
 -- 1)
 SELECT 
   ord.id, ord.status, ord.client_id,
-  prod.id prod_id, prod.name, prod.type, prod.price, prod.loyalty_pts
+  prod.id prod_id, prod.name, prod.type, TRUNC(prod.price::numeric, 2), prod.loyalty_pts
 FROM product_order po 
   JOIN orders ord ON po.order_id = ord.id
   JOIN products prod ON po.product_id = prod.id;
@@ -34,7 +34,7 @@ FROM product_order po
 
 -- 4)
 SELECT
-  SUM(prod.price) total_laura
+  TRUNC(SUM(prod.price::numeric), 2) total_laura
 FROM product_order po
   JOIN products prod ON po.product_id = prod.id
   JOIN orders ord ON po.order_id = ord.id
@@ -48,4 +48,3 @@ FROM product_order po
   JOIN products prod ON po.product_id = prod.id
   GROUP BY prod.name
   ORDER BY prod.name;
-  
